@@ -1,0 +1,169 @@
+@import "https://unpkg.com/open-props" layer(design.system);
+@import "https://unpkg.com/open-props/normalize.min.css" layer(demo.support);
+@import "https://unpkg.com/open-props/buttons.min.css" layer(demo.support);
+
+@layer demo {
+  .container {
+    /* MUY IMPORTANTE esto es "tamaño" y no "tamaño en línea" */
+     /* desbloquea consultas de relación de aspecto del contenedor */
+    container: perfect-bento / size;
+  }
+  
+  .always-great-grid {
+    /* estas son todas las consultas de cantidad */
+     /* cómo sabe la grilla el número de cajas */
+     /* algunos apuntan a la propia grilla */
+     /* algunos apuntan al :first-child */
+    
+    &:has(> :last-child:nth-child(3)) > :first-child {
+      grid-column: span 2;
+    }
+    
+    &:has(> :last-child:nth-child(4)) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    &:has(> :last-child:nth-child(5)) > :first-child {
+      grid-column: span 2;
+    }
+    
+    &:has(> :last-child:nth-child(6)) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    &:has(> :last-child:nth-child(7)) > :first-child {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+    
+    &:has(> :last-child:nth-child(8)) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    &:has(> :last-child:nth-child(9)) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    
+    &:has(> :last-child:nth-child(10)) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    &:has(> :last-child:nth-child(11)) > :first-child {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+    
+    &:has(> :last-child:nth-child(12)) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    
+    /* aquí es donde se adapta el diseño si es horizontal */
+    @container perfect-bento (orientation: landscape) {
+      grid-auto-flow: column;
+      grid-auto-columns: 1fr;
+      
+      &:has(> :last-child:nth-child(3)) {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      
+      &:has(> :last-child:nth-child(5)) > :first-child {
+        grid-column: initial;
+        grid-row: span 2;
+      }
+      
+      &:has(> :last-child:nth-child(6)),
+      &:has(> :last-child:nth-child(8)),
+      &:has(> :last-child:nth-child(10)),
+      &:has(> :last-child:nth-child(12)) {
+        grid-template-rows: repeat(2, 1fr);
+      }
+      
+      &:has(> :last-child:nth-child(9)) > :first-child {
+        grid-column: span 2;
+        grid-row: span 2;
+      }
+    }
+  }
+}
+
+@layer demo.transitions {
+/* esto hace que los pseudoelementos de transición de vista (VT) no roben clics */
+  ::view-transition {
+    pointer-events: none;
+  }
+  
+ /* elimina la transición de vista en la página */
+   /* ayuda a aislar el efecto de transformación en la cuadrícula */
+  :root {
+    view-transition-name: none;
+  }
+  
+  /* ¡hace que todas las animaciones VT sean elásticas! */
+  ::view-transition-group(*) {
+    animation-timing-function: var(--ease-squish-1);
+    animation-timing-function: var(--ease-spring-2);
+    animation-duration: .75s;
+  }
+  /* esto hace que el tamaño de la forma de la caja se transforme mejor */
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    height: 100%;
+    width: 100%;
+  }
+  
+  @media (prefers-reduced-motion: no-preference) {
+   /* animación personalizada para las nuevas cajas que llegan */
+     /* usa animación Open Props y facilita los accesorios */
+     /* https://open-props.style/#animaciones */
+    ::view-transition-new(*):only-child {
+      animation: 
+        var(--animation-slide-in-up) forwards,
+        var(--animation-fade-in) forwards;
+      animation-timing-function: var(--ease-squish-1);
+      animation-timing-function: var(--ease-spring-2);
+    }
+
+  /* animación personalizada para cajas viejas que se apagan */
+    ::view-transition-old(*):only-child {
+      animation: 
+        var(--animation-slide-out-down) forwards,
+        var(--animation-fade-out) forwards;
+    }
+  }
+}
+
+@layer demo.support {
+  body {
+    display: grid;
+    place-content: center;
+    padding: var(--size-5);
+    gap: var(--size-5);
+  }
+  
+  footer {
+    display: flex;
+    place-content: center;
+    gap: var(--size-2);
+  }
+  
+  .always-great-grid {
+    display: grid;
+    gap: var(--size-3);
+    padding: var(--size-3);
+  }
+  
+  .box {
+    background: var(--surface-4);
+    border-radius: var(--radius-3);
+  }
+  
+  .container {
+    overflow: hidden;
+    resize: both;
+    
+    display: grid;
+    block-size: min(var(--size-content-2), 50vw);
+    inline-size: min(var(--size-content-2), 50vw);
+    border: 1px solid var(--surface-3);
+  }
+}

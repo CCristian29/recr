@@ -1,0 +1,72 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    display: block;
+}
+h1{
+    text-align: center;
+    color: black;
+    margin: 10px 10px;
+
+}
+div{
+    width: 1000px;
+    color: white;
+    font-size: large;
+    display: flex;
+    align-content: center;
+    align-items: flex-end;
+    margin-top: 10px;
+    margin-right: 10px;
+    padding: 10px;
+
+}
+/*color primario*/
+.color-primario{
+    background-color: rgb(255, 0, 0);
+    border:3px solid black;
+}
+.color-primario2{
+    background-color: rgb(255, 255, 0);
+    border:3px solid black;
+}
+.color-primario3{
+    background-color: rgb(0, 0, 255);
+    border:3px solid black;
+}
+.color-primario4{
+    background-color: rgb(0, 0, 0);
+    border:3px solid black;
+}
+.color-primario5{
+    background-color: rgb(255, 255, 255);
+    color: black;
+    border:3px solid black;
+}
+
+/*color segundario*/
+.color-segundario{
+    background-color: hwb(97 0% 0%);
+    border:3px solid black;
+}
+.color-segundario2{
+    background-color: hsl(0, 100%, 50%);
+    border:3px solid black;
+}
+.color-segundario3{
+    background-color: #f00000;
+    border:3px solid black;
+}
+/*color terciario*/
+.color-terciario{
+    background-color: rgb(255, 0, 0);
+    border:3px solid black;
+}
+.color-terciario2{
+    background-color: hsl(0, 100%, 50%);
+    border:3px solid black;
+}
+.color-terciario3{
+    background-color: #f00000;
+    border:3px solid black;
+}
